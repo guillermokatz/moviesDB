@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/headerActors') %>
+<body>
+    <h1>RESULTADOS DE BÚSQUEDA "<%=stringBuscado%>"</h1>
+    <% if (typeof ordenPor != "undefined") { %>
+        <h2>Ordenado por <%=ordenPor%></h2>
+    <% } %>
+    
+    
+    <% for (let i = 0; i < actorsList.length; i++) { %>
+        
+        <% if (typeof ordenPor != "undefined") { %>
+            <% switch(ordenPor) { case "apellido": %>
+            <a href="/actors/<%=actorsList[i].id%>">
+                <p><%= actorsList[i].last_name %> <%= actorsList[i].first_name %></p>
+            </a>
+            <% break; case "rating": %>
+            <a href="/actors/<%=actorsList[i].id%>">
+                <p><%= actorsList[i].first_name %> <%= actorsList[i].last_name %></p>
+            </a>
+            <p>Rating: <%= actorsList[i].rating %></p>
+            <% break; default: "" %>
+            <% break; } %>
+
+        <%} else {%>   
+            <a href="/actors/<%=actorsList[i].id%>">
+                <p><%= actorsList[i].first_name %> <%= actorsList[i].last_name %></p>
+            </a>
+            
+        <% } %>
+        
+    <% } %>
+</body>
+</html>

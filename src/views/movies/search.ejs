@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/header') %>
+<body>
+    <h1>RESULTADOS DE BÚSQUEDA "<%=stringBuscado%>"</h1>
+    <% if (typeof ordenPor != "undefined") { %>
+        <h2>Ordenado por <%=ordenPor%></h2>
+    <% } %>
+    
+    
+    <% for (let i = 0; i < pelis.length; i++) { %>
+    <a href="/movies/<%=pelis[i].id%>">
+        <p><%= pelis[i].title %></p>
+    </a>
+
+        <% if (typeof ordenPor != "undefined") { %>
+            <% switch(ordenPor) { case "rating": %>
+                <p>Rating: <%= pelis[i].rating %></p>
+            <% break; case "fecha de estreno": %>
+                <p>Fecha de estreno: <%= moment(pelis[i].release_date).format('DD-MM-YYYY') %></p>
+            <% break; case "duración": %>
+                <p>Duración: <%= pelis[i].length %> minutos</p>
+            <% break; case "cantidad de premios": %>
+                <p>Premios: <%= pelis[i].awards %></p>
+            <% break; default: "" %>
+            <% break; } %>
+        <% } %>
+        
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<header>
+    <nav class="header_nav">
+        <a href="../actors/"><p>ACTORES</p></a>
+        <!-- <a href="../actors/new"><p>Nuevos</p></a> -->
+        <a href="../actors/recommended"><p>TOP</p></a>
+        <a href="../movies/"><p>PELÍCULAS</p></a>
+        <a href="../../info"><p>ACERCA DE MOVIESDB</p></a>
+        
+    
+    <form action="../actors/results" method="POST">
+        <input type="text" required id="search" name="search" placeholder="Buscar actores">
+        <select id="order" name="order">
+            <option value="">Orden (Opcional)</option>
+            <option value="last_name">Por apellido</option>
+            <option value="rating">Por rating</option>
+        </select> 
+        <button type="submit">BUSCAR ACTOR/ACTRIZ</button>
+    </form>
+</nav>
+</header>

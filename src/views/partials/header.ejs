@@ -1,0 +1,22 @@
+<header>
+    <nav class="header_nav">
+        <a href="../movies/"><p>PELÍCULAS</p></a>
+        <a href="../movies/new"><p>NUEVAS</p></a>
+        <a href="../movies/recommended"><p>TOP</p></a>
+        <a href="../actors/"><p>ACTORES</p></a>
+        <a href="../../info"><p>ACERCA DE MOVIESDB</p></a>
+        
+    
+    <form action="../movies/results" method="POST">
+        <input type="text" required id="search" name="search" placeholder="Buscar películas">
+        <select id="order" name="order">
+            <option value="">Orden (Opcional)</option>
+            <option value="release_date">Por fecha de estreno</option>
+            <option value="rating">Por rating</option>
+            <option value="length">Por duración</option>
+            <option value="awards">Por cantidad de premios</option>
+        </select> 
+        <button type="submit">BUSCAR PELÍCULA</button>
+    </form>
+</nav>
+</header>

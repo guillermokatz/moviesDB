@@ -1,0 +1,12 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/headerActors') %>
+<body>
+    <h2>DETALLE ACTOR</h2>
+    <h1><%= actor.first_name%> <%= actor.last_name%></h1>
+    <p>RATING: <%= actor.rating %></p>
+    <p>PELÍCULA FAVORITA: <%= actor.favorite_movie_id %></p>
+    <button type="button">MODIFICAR</button>
+    <button type="button">BORRAR</button>
+</body>
+</html>

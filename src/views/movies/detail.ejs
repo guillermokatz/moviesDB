@@ -1,0 +1,14 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/header') %>
+<body>
+    <h2>DETALLE PELÍCULA</h2>
+    <h1><%= peli.title %></h1>
+    <p>FECHA DE ESTRENO: <%= moment(peli.release_date).format('DD-MM-YYYY') %></p>
+    <p>RATING: <%= peli.rating %></p>
+    <p>DURACIÓN: <%= peli.length %> minutos</p>
+    <p>PREMIOS: <%= peli.awards %></p>
+    <button type="button">MODIFICAR</button>
+    <button type="button">BORRAR</button>
+</body>
+</html>

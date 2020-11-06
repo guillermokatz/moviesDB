@@ -1,0 +1,40 @@
+* {
+  background-color: gray;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: white;
+}
+
+option {
+  background-color: white;
+}
+
+a {
+  color: white;
+}
+
+.header_nav {
+  align-items: center;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1%;
+  justify-content: space-between;
+  text-align: center;
+  
+}
+
+.header_nav a {
+  text-decoration: none;
+}
+/* body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+} */
