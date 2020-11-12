@@ -1,17 +1,19 @@
 const path = require('path');
 const moment = require('moment');
 
-const {Movie, sequelize} = require('../database/models');
+const {Movie, Genre, sequelize} = require('../database/models');
 const {Op} = require('sequelize');
 
 const moviesController = {
 
     list: async (req, res) => {
     try {
-      const moviesJson = await Movie.findAll({
-        order: [['title','ASC']]
-      });
-      res.render('movies/list', {pelis:moviesJson, title: 'Lista de películas'})
+      const moviesJson = await Movie.findAll({ include:["Genre"],
+          order: [['title','ASC']]
+        }
+        );
+      // res.send(moviesJson);
+        res.render('movies/list', {pelis:moviesJson, title: 'Lista de películas'})
     } catch (error) {
       console.log(error)
     }
@@ -34,7 +36,9 @@ const moviesController = {
 
     detail: async (req, res) => {
       try {
-        let moviesJson = await Movie.findByPk(req.params.id)
+        let moviesJson = await Movie.findByPk(req.params.id, {
+          include:{all:true}
+        })
         res.render('movies/detail', {peli:moviesJson, moment:moment, title: moviesJson.title});
       } catch (error) {
         console.log(error);
@@ -108,6 +112,52 @@ const moviesController = {
           }
         
       }
+    },
+
+    create: async (req, res) => {
+      try {
+        const generos = await Genre.findAll({
+          order: [['name','ASC']]
+        });
+        res.render('movies/create_movie', {title: 'Crear película', generos});
+
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    processCreate: async (req, res) => {
+      try {
+        Movie.create(req.body);
+      } catch (error) {
+        console.log(error)
+      }
+      
+      res.redirect('/movies');
+    },
+
+    edit: async (req, res) => {
+      try {
+        const movie = await Movie.findByPk(req.params.id, {
+          include:['Genre']
+        });
+
+        const generos = await Genre.findAll({
+          order: [['name','ASC']]
+        });
+
+        res.render('movies/edit_movie', {movie: movie, generos: generos, moment:moment, title: "Editar " + movie.title});
+
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    processEdit: async (req, res) => {
+      await Movie.update(req.body, {
+        where: {id: req.params.id}
+      })
+      res.redirect('../../movies/'+req.params.id);
     }
         // .then((resultados) => {
         //   res.render('movies/list', {pelis:resultados})

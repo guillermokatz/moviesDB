@@ -11,7 +11,8 @@ const actorsController = require('../controllers/actorsController')
 // });
 router.get('/', actorsController.list);
 router.get('/recommended', actorsController.rating);
-// router.get('/new', actorsController.new);
+// router.get('/newAct', actorsController.newAct);
+
 router.post('/results', actorsController.searchResults);
 router.get('/:id', actorsController.detail);
 

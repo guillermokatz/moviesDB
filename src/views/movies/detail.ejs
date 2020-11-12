@@ -8,7 +8,18 @@
     <p>RATING: <%= peli.rating %></p>
     <p>DURACIÓN: <%= peli.length %> minutos</p>
     <p>PREMIOS: <%= peli.awards %></p>
+    <% if(peli.Genre) { %></p>
+        <p>GENERO: <%= peli.Genre.name %></p>
+    <% }%>
+    <p> ACTORES: </p>
+    <% peli.actores.forEach(actor => { %>
+        <a href="/actors/<%=actor.id%>">    
+        <p><%= actor.first_name %> <%= actor.last_name %></p>
+        </a>
+    <% }) %>
+    <a href="edit/<%=peli.id%>">
     <button type="button">MODIFICAR</button>
+    </a>
     <button type="button">BORRAR</button>
 </body>
 </html>

@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     const Actor = sequelize.define(alias,cols);
+
+    Actor.associate = (models => {
+        Actor.belongsToMany(models.Movie, {
+            through: 'actor_movie'
+        })
+    })
     
     return Actor;
 };

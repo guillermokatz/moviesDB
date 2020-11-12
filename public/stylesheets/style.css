@@ -20,7 +20,7 @@ a {
   align-items: center;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 1%;
   justify-content: space-between;
   text-align: center;
@@ -29,6 +29,33 @@ a {
 
 .header_nav a {
   text-decoration: none;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forms input {
+  background-color: white;
+  width: 30%;
+}
+
+.forms select {
+  background-color: white;
+  width: 30%;
+}
+
+.forms label {
+  color: white
+}
+
+.forms button {
+  margin-top: 1%;
+  width: 20%;
+  padding: 1%;
+  background-color: lightgray;
 }
 /* body {
   padding: 50px;

@@ -12,6 +12,12 @@ const moviesController = require('../controllers/moviesController')
 router.get('/', moviesController.list);
 router.get('/recommended', moviesController.rating);
 router.get('/new', moviesController.new);
+router.get('/create', moviesController.create);
+router.post('/create', moviesController.processCreate);
+router.get('/edit/:id', moviesController.edit);
+router.put('/edit/:id', moviesController.processEdit);
+// router.delete('/delete/:id', moviesController.delete);
+// router.get('/genre/:id', moviesController.genreDetail);
 router.post('/results', moviesController.searchResults);
 router.get('/:id', moviesController.detail);
 

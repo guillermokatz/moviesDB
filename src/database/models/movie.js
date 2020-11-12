@@ -1,5 +1,6 @@
 const {sequelize, DataTypes} = require('sequelize');
 
+
 module.exports = (sequelize, DataTypes) => {
     let alias = "Movie";
     let cols = {
@@ -16,5 +17,16 @@ module.exports = (sequelize, DataTypes) => {
 
     const Movie = sequelize.define(alias,cols);
     
+    Movie.associate = (models => {
+        Movie.belongsTo(models.Genre);
+
+        Movie.belongsToMany(models.Actor,{
+            as: 'actores',
+            through: 'actor_movie'
+            
+        });
+    });
+
+
     return Movie;
 };

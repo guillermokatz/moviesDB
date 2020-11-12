@@ -6,7 +6,10 @@
 
     <h1>LISTA DE PELÍCULAS</h1>
     <% for (let i = 0; i < pelis.length; i++) { %>
-    <a href="/movies/<%=pelis[i].id%>"><p><%= pelis[i].title %></p></a>
+    
+    <a href="/movies/<%=pelis[i].id%>">
+        <p><%= pelis[i].title %></p>
+    </a>
     <% } %>
 
 </body>

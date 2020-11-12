@@ -1,0 +1,39 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/header') %>
+<body>
+    
+    <form class="forms" action="/movies/edit/<%=movie.id%>?_method=PUT" method="POST">
+        <h2>EDITAR PELÍCULA <%=movie.title%></h2>
+        <label for="title">TITULO: </label>
+        <input type="text" name="title" id="title" value="<%=movie.title%>">
+        
+        <label for="rating">RATING: </label>
+        <input type="text" id="rating" name="rating" value="<%=movie.rating%>">
+
+        <label for="awards">PREMIOS (CANTIDAD): </label>
+        <input type="text" id="awards" name="awards" value="<%=movie.awards%>">
+
+        <label for="release_date">FECHA DE ESTRENO: </label>
+        <input type="date" id="release_date" name="release_date" value="<%=moment(movie.release_date).format('YYYY-MM-DD')%>">
+        
+        <label for="length">DURACIÓN (MINUTOS): </label>
+        <input type="text" id="length" name="length" value="<%=movie.length%>">
+        
+        <label for="genre_id">GÉNERO: </label>
+        <select id="genre_id" name="genre_id">
+        <% generos.forEach(genero => { %>
+            
+            <% if (genero.id == movie.genre_id) { %>
+            <option value="<%=genero.id%>" selected><%= genero.name %></option>
+            <% } else { %>
+            <option value="<%=genero.id%>"><%= genero.name %></option>
+            <% } %>
+
+        <% }) %>
+        </select>    
+        <button type="submit">EDITAR PELÍCULA</button>
+    </form>
+    
+</body>
+</html>
