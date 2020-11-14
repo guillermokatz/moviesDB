@@ -1,0 +1,45 @@
+<%- include('../partials/head') %>
+
+
+<%- include('../partials/subheaderActors') %>
+
+<body>
+    <!-- MENSAJES DE ERROR -->
+    <% if (typeof errors != "undefined") { %>
+        <% errors.errors.forEach(error => { %>
+            <p class="errors"><%= error.msg%></p>
+        <% }) %>
+        
+    <% } %>
+
+    <!-- FORMULARIO DE EDICIÓN -->
+    <form class="forms" action="/actors/edit/<%=actor.id%>?_method=PUT" method="POST">
+        <h2>EDITAR ACTOR/ACTRIZ <%=actor.first_name%> <%=actor.last_name%></h2>
+        <label for="first_name">PRIMER NOMBRE: </label>
+    <input type="text" name="first_name" id="first_name" value="<%if (typeof old != "undefined" && old.first_name != "") { %><%= old.first_name %><% } else {%><%=actor.first_name%><%}%>" >
+        
+        <label for="last_name">APELLIDO: </label>
+        <input type="text" id="last_name" name="last_name" value="<%if (typeof old != "undefined" && old.last_name != "") { %><%= old.last_name %><% } else {%><%=actor.last_name%><%}%>" >
+
+        <label for="rating">RATING: </label>
+        <input type="text" id="rating" name="rating" value="<%if (typeof old != "undefined" && old.rating != "") { %><%= old.rating %><% } else {%><%=actor.rating%><%}%>" >
+
+        <label for="favorite_movie_id">PELÍCULA FAVORITA: </label>
+        <select id="favorite_movie_id" name="favorite_movie_id" >
+        <% peliculasFav.forEach(pelicula => { %>
+            
+            <%if (typeof old != "undefined" && old.favorite_movie_id == pelicula.id) { %>
+                <option value="<%=pelicula.id%>" selected><%= pelicula.title %></option>
+            <% } else if (typeof old == "undefined" && pelicula.id == actor.favorite_movie_id) { %>
+                <option value="<%=pelicula.id%>" selected><%= pelicula.title %></option>
+            <% } else { %>
+                <option value="<%=pelicula.id%>"><%= pelicula.title %></option>
+            <% } %>
+
+        <% }) %>
+        </select>    
+        <button type="submit">EDITAR ACTOR/ACTRIZ</button>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/subHeader') %>
+<body>
+    <h2>DETALLE GÉNERO <%=genero.name%></h2>
+    
+    <p>RANKING: <%= genero.ranking %></p>
+    
+    <p> PELICULAS: </p>
+    <% genero.Movies.forEach(pelicula => { %>
+        <a href="../../movies/detail/<%=pelicula.id%>">    
+        <p><%= pelicula.title %></p>
+        </a>
+    <% }) %>
+    
+</body>
+</html>

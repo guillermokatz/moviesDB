@@ -12,11 +12,11 @@
         
         <% if (typeof ordenPor != "undefined") { %>
             <% switch(ordenPor) { case "apellido": %>
-            <a href="/actors/<%=actorsList[i].id%>">
+            <a href="/actors/detail/<%=actorsList[i].id%>">
                 <p><%= actorsList[i].last_name %> <%= actorsList[i].first_name %></p>
             </a>
             <% break; case "rating": %>
-            <a href="/actors/<%=actorsList[i].id%>">
+            <a href="/actors/detail/<%=actorsList[i].id%>">
                 <p><%= actorsList[i].first_name %> <%= actorsList[i].last_name %></p>
             </a>
             <p>Rating: <%= actorsList[i].rating %></p>
@@ -24,7 +24,7 @@
             <% break; } %>
 
         <%} else {%>   
-            <a href="/actors/<%=actorsList[i].id%>">
+            <a href="/actors/detail/<%=actorsList[i].id%>">
                 <p><%= actorsList[i].first_name %> <%= actorsList[i].last_name %></p>
             </a>
             

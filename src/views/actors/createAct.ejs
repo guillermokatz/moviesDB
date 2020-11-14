@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/headerActors') %>
+<body>
+        
+    <form class="forms" action="/actors/create_act" method="POST">
+        <h2>NUEVA ACTUACIÓN</h2>
+
+        <label for="actor_id">ACTOR/ACTRIZ: </label>
+        <select id="actor_id" name="actor_id" >
+        <% actores.forEach(actor => { %>
+            <option value="<%=actor.id%>"><%= actor.first_name %> <%= actor.last_name %></option>
+        <% }) %>
+        </select>
+
+        <label for="movie_id">PELíCULA: </label>
+        <select id="movie_id" name="movie_id" >
+        <% peliculas.forEach(pelicula => { %>
+            <option value="<%=pelicula.id%>"><%= pelicula.title %></option>
+        <% }) %>
+        </select>
+        
+        
+        
+
+        <button type="submit">CREAR ACTUACIÓN</button>
+    </form>
+
+    
+    
+</body>
+</html>

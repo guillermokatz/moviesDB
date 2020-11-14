@@ -4,32 +4,42 @@
 <%- include('../partials/subHeader') %>
 
 <body>
-    
+    <!-- MENSAJES DE ERROR -->
+    <% if (typeof errors != "undefined") { %>
+        <% errors.errors.forEach(error => { %>
+            <p class="errors"><%= error.msg%></p>
+        <% }) %>
+        
+    <% } %>
+
+    <!-- FORMULARIO DE EDICIÓN -->
     <form class="forms" action="/movies/edit/<%=movie.id%>?_method=PUT" method="POST">
         <h2>EDITAR PELÍCULA <%=movie.title%></h2>
         <label for="title">TITULO: </label>
-        <input type="text" name="title" id="title" value="<%=movie.title%>" required>
+    <input type="text" name="title" id="title" value="<%if (typeof old != "undefined" && old.title != "") { %><%= old.title %><% } else {%><%=movie.title%><%}%>" >
         
         <label for="rating">RATING: </label>
-        <input type="text" id="rating" name="rating" value="<%=movie.rating%>" required>
+        <input type="text" id="rating" name="rating" value="<%if (typeof old != "undefined" && old.rating != "") { %><%= old.rating %><% } else {%><%=movie.rating%><%}%>" >
 
         <label for="awards">PREMIOS (CANTIDAD): </label>
-        <input type="text" id="awards" name="awards" value="<%=movie.awards%>" required>
+        <input type="text" id="awards" name="awards" value="<%if (typeof old != "undefined" && old.awards != "") { %><%= old.awards %><% } else {%><%=movie.awards%><%}%>" >
 
         <label for="release_date">FECHA DE ESTRENO: </label>
-        <input type="date" id="release_date" name="release_date" value="<%=moment(movie.release_date).format('YYYY-MM-DD')%>" required>
+        <input type="date" id="release_date" name="release_date" value="<%if (typeof old != "undefined" && old.release_date != "") { %><%= old.release_date %><% } else {%><%=moment(movie.release_date).format('YYYY-MM-DD')%><%}%>" >
         
         <label for="length">DURACIÓN (MINUTOS): </label>
-        <input type="text" id="length" name="length" value="<%=movie.length%>" required>
+        <input type="text" id="length" name="length" value="<%if (typeof old != "undefined" && old.length != "") { %><%= old.length %><% } else {%><%=movie.length%><%}%>" >
         
         <label for="genre_id">GÉNERO: </label>
-        <select id="genre_id" name="genre_id" required>
+        <select id="genre_id" name="genre_id" >
         <% generos.forEach(genero => { %>
             
-            <% if (genero.id == movie.genre_id) { %>
-            <option value="<%=genero.id%>" selected><%= genero.name %></option>
+            <%if (typeof old != "undefined" && old.genre_id == genero.id) { %>
+                <option value="<%=genero.id%>" selected><%= genero.name %></option>
+            <% } else if (typeof old == "undefined" && genero.id == movie.genre_id) { %>
+                <option value="<%=genero.id%>" selected><%= genero.name %></option>
             <% } else { %>
-            <option value="<%=genero.id%>"><%= genero.name %></option>
+                <option value="<%=genero.id%>"><%= genero.name %></option>
             <% } %>
 
         <% }) %>

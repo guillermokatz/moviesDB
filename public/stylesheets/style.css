@@ -75,6 +75,13 @@ a {
   padding: 1%;
   background-color: lightgray;
 }
+
+.errors {
+  font-size: 0.8em;
+  color: lightsalmon;
+  margin: 0px;
+  text-align: center;
+}
 /* body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

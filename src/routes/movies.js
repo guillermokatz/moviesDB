@@ -19,11 +19,15 @@ router.get('/create', moviesController.create);
 router.post('/create', validator.createMovie, moviesController.processCreate);
 
 router.get('/edit/:id', moviesController.edit);
-router.put('/edit/:id', moviesController.processEdit);
+
+router.put('/edit/:id', validator.createMovie, moviesController.processEdit);
+
 router.delete('/delete/:id', moviesController.delete);
 // router.get('/genre/:id', moviesController.genreDetail);
 router.post('/results', moviesController.searchResults);
 router.get('/detail/:id', moviesController.detail);
+
+router.get('/genre/:id', moviesController.genreDetail);
 
 
 

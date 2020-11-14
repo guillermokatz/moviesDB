@@ -2,18 +2,17 @@
 
 <%- include('../partials/header') %>
 <body>
-    
+    <!-- MENSAJES DE ERROR -->
+    <% if (typeof errors != "undefined") { %>
+        <% errors.errors.forEach(error => { %>
+            <p class="errors"><%= error.msg%></p>
+        <% }) %>
+        
+    <% } %>    
+
+    <!-- FORMULARIO DE CREACIÓN -->
     <form class="forms" action="/movies/create" method="POST">
         <h2>NUEVA PELÍCULA</h2>
-
-        <% if (typeof errors != "undefined") { %>
-            <% errors.errors.forEach(error => { %>
-                <p><%= error.msg%></p>
-            <% }) %>
-            
-        <% } %>
-        
-
 
         <label for="title">TITULO: </label>
             <input type="text" name="title" id="title" value="<%if (typeof old != "undefined" && old.title != "") { %><%= old.title %><% } %>">
@@ -42,6 +41,8 @@
         </select>    
         <button type="submit">CREAR PELÍCULA</button>
     </form>
+
+    
     
 </body>
 </html>

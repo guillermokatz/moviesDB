@@ -1,0 +1,39 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/headerActors') %>
+<body>
+    <% if (typeof errors != "undefined") { %>
+        <% errors.errors.forEach(error => { %>
+            <p class="errors"><%= error.msg%></p>
+        <% }) %>
+        
+    <% } %>    
+    <form class="forms" action="/actors/create" method="POST">
+        <h2>NUEVO ACTOR</h2>
+
+        <label for="first_name">PRIMER NOMBRE: </label>
+            <input type="text" name="first_name" id="first_name" value="<%if (typeof old != "undefined" && old.first_name != "") { %><%= old.first_name %><% } %>">
+        
+        <label for="last_name">APELLIDO: </label>
+        <input type="text" id="last_name" name="last_name" value="<%if (typeof old != "undefined" && old.last_name != "") { %><%= old.last_name %><% } %>">
+
+        <label for="rating">RATING: </label>
+        <input type="text" id="rating" name="rating" value="<%if (typeof old != "undefined" && old.rating != "") { %><%= old.rating %><% } %>">
+
+        <label for="favorite_movie_id">PELíCULA FAVORITA: </label>
+        <select id="favorite_movie_id" name="favorite_movie_id" >
+        <% peliculasFav.forEach(pelicula => { %>
+            <%if (typeof old != "undefined" && old.favorite_movie_id == pelicula.id) { %>
+            <option value="<%=pelicula.id%>" selected><%= pelicula.title %></option>
+            <% } else { %>
+            <option value="<%=pelicula.id%>"><%= pelicula.title %></option>
+            <% } %>
+        <% }) %>
+        </select>    
+        <button type="submit">CREAR ACTOR</button>
+    </form>
+
+    
+    
+</body>
+</html>

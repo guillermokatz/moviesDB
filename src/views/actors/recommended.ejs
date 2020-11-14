@@ -7,7 +7,7 @@
     <h1>TOP ACTORES</h1>
     <% for (let i = 0; i < actorsList.length; i++) { %>
     <p><%= i+1%>)</p>
-    <a href="/actors/<%=actorsList[i].id%>"><p><%= actorsList[i].first_name%> <%= actorsList[i].last_name%></p></a>
+    <a href="/actors/detail/<%=actorsList[i].id%>"><p><%= actorsList[i].first_name%> <%= actorsList[i].last_name%></p></a>
     <p>Rating: <%=actorsList[i].rating%></p>
     <% } %>
 </body>

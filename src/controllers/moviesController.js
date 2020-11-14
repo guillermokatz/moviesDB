@@ -168,18 +168,58 @@ const moviesController = {
     },
 
     processEdit: async (req, res) => {
-      await Movie.update(req.body, {
-        where: {id: req.params.id}
-      })
-      res.redirect('../../movies/detail/'+req.params.id);
+      const errors = validationResult(req);
+      
+      const movie = await Movie.findByPk(req.params.id, {
+        include:['Genre']
+      });
+
+      const generos = await Genre.findAll({
+        order: [['name','ASC']]
+      });
+      
+      if (errors.isEmpty()) {
+        try {
+        await Movie.update(req.body, {
+          where: {id: req.params.id}
+        });
+        res.redirect('../../movies/');
+
+        } catch (error) {
+          console.log(error)
+        };
+      } else {
+        const old = req.body;
+        res.render('movies/edit_movie', {movie: movie, generos: generos, moment:moment, title: "Editar " + movie.title, errors: errors, old: old});
+      }
     },
 
     delete: async (req, res) => {
+      try {
+      const movie = await Movie.findByPk(req.params.id, {include:{all: true}});
+      await movie.removeActores(movie.actores)
+      // res.send(movie)
+      
       await Movie.destroy({
         where: {id: req.params.id}
       });
 
       res.redirect('/movies');
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    genreDetail: async (req,res) => {
+      try {
+        let genero = await Genre.findByPk(req.params.id, {
+          include:{all:true}
+        })
+        res.render('movies/genreDetail', {genero, title: genero.title});
+      } catch (error) {
+        console.log(error);
+      }
     }
         // .then((resultados) => {
         //   res.render('movies/list', {pelis:resultados})

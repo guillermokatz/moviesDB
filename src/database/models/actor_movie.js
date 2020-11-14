@@ -12,5 +12,15 @@ module.exports = (sequelize, DataTypes) => {
 
     const Actor_Movie = sequelize.define(alias,cols,config);
     
+    Actor_Movie.associate = (models => {
+        Actor_Movie.belongsTo(models.Movie, {
+            foreignKey: "movie_id"
+        });
+
+        Actor_Movie.belongsTo(models.Actor, {
+            foreignKey: "actor_id"
+        });
+    })
+
     return Actor_Movie;
 };

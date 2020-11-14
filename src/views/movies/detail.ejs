@@ -9,11 +9,11 @@
     <p>DURACIÓN: <%= peli.length %> minutos</p>
     <p>PREMIOS: <%= peli.awards %></p>
     <% if(peli.Genre) { %></p>
-        <p>GENERO: <%= peli.Genre.name %></p>
+        <p>GENERO: <a href="../genre/<%=peli.Genre.id%>"><%= peli.Genre.name %></a></p>
     <% }%>
     <p> ACTORES: </p>
     <% peli.actores.forEach(actor => { %>
-        <a href="../../actors/<%=actor.id%>">    
+        <a href="../../actors/detail/<%=actor.id%>">    
         <p><%= actor.first_name %> <%= actor.last_name %></p>
         </a>
     <% }) %>
