@@ -31,6 +31,24 @@ a {
   text-decoration: none;
 }
 
+.detail_buttons {
+  display: flex;
+  align-items: flex-end;
+}
+
+.detail_buttons * {
+  margin-right: 5%;
+}
+.edit_button {
+    background-color: black;
+    color: white;
+    padding:20%;
+}
+
+.delete_button {
+  background-color: lightsalmon;
+}
+
 .forms {
   display: flex;
   flex-direction: column;

@@ -7,7 +7,7 @@
     <h1>ÚLTIMAS PELÍCULAS</h1>
     <% for (let i = 0; i < pelis.length; i++) { %>
     <p><%= i+1%>)</p>
-    <a href="/movies/<%=pelis[i].id%>"><p><%= pelis[i].title %></p></a>
+    <a href="/movies/detail/<%=pelis[i].id%>"><p><%= pelis[i].title %></p></a>
     <p>Fecha de estreno: <%=moment(pelis[i].release_date).format("DD-MM-YYYY")%></p>
     <% } %>
 </body>

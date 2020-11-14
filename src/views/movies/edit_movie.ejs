@@ -1,27 +1,29 @@
 <%- include('../partials/head') %>
 
-<%- include('../partials/header') %>
+
+<%- include('../partials/subHeader') %>
+
 <body>
     
     <form class="forms" action="/movies/edit/<%=movie.id%>?_method=PUT" method="POST">
         <h2>EDITAR PELÍCULA <%=movie.title%></h2>
         <label for="title">TITULO: </label>
-        <input type="text" name="title" id="title" value="<%=movie.title%>">
+        <input type="text" name="title" id="title" value="<%=movie.title%>" required>
         
         <label for="rating">RATING: </label>
-        <input type="text" id="rating" name="rating" value="<%=movie.rating%>">
+        <input type="text" id="rating" name="rating" value="<%=movie.rating%>" required>
 
         <label for="awards">PREMIOS (CANTIDAD): </label>
-        <input type="text" id="awards" name="awards" value="<%=movie.awards%>">
+        <input type="text" id="awards" name="awards" value="<%=movie.awards%>" required>
 
         <label for="release_date">FECHA DE ESTRENO: </label>
-        <input type="date" id="release_date" name="release_date" value="<%=moment(movie.release_date).format('YYYY-MM-DD')%>">
+        <input type="date" id="release_date" name="release_date" value="<%=moment(movie.release_date).format('YYYY-MM-DD')%>" required>
         
         <label for="length">DURACIÓN (MINUTOS): </label>
-        <input type="text" id="length" name="length" value="<%=movie.length%>">
+        <input type="text" id="length" name="length" value="<%=movie.length%>" required>
         
         <label for="genre_id">GÉNERO: </label>
-        <select id="genre_id" name="genre_id">
+        <select id="genre_id" name="genre_id" required>
         <% generos.forEach(genero => { %>
             
             <% if (genero.id == movie.genre_id) { %>

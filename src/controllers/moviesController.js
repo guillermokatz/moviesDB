@@ -1,6 +1,6 @@
 const path = require('path');
 const moment = require('moment');
-
+const { validationResult } = require('express-validator');
 const {Movie, Genre, sequelize} = require('../database/models');
 const {Op} = require('sequelize');
 
@@ -115,6 +115,9 @@ const moviesController = {
     },
 
     create: async (req, res) => {
+      
+      
+
       try {
         const generos = await Genre.findAll({
           order: [['name','ASC']]
@@ -127,13 +130,24 @@ const moviesController = {
     },
 
     processCreate: async (req, res) => {
-      try {
-        Movie.create(req.body);
-      } catch (error) {
-        console.log(error)
-      }
+      const errors = validationResult(req);
       
-      res.redirect('/movies');
+      const generos = await Genre.findAll({
+        order: [['name','ASC']]
+      });
+
+      if (errors.isEmpty()) {     
+        try {
+          await Movie.create(req.body);
+          res.redirect('/movies');
+        } catch (error) {
+          console.log(error)
+        }      
+      }
+      else {
+        const old = req.body;
+        res.render('movies/create_movie', {title: 'Crear película', generos: generos, errors: errors, old: old});
+      }
     },
 
     edit: async (req, res) => {
@@ -157,7 +171,15 @@ const moviesController = {
       await Movie.update(req.body, {
         where: {id: req.params.id}
       })
-      res.redirect('../../movies/'+req.params.id);
+      res.redirect('../../movies/detail/'+req.params.id);
+    },
+
+    delete: async (req, res) => {
+      await Movie.destroy({
+        where: {id: req.params.id}
+      });
+
+      res.redirect('/movies');
     }
         // .then((resultados) => {
         //   res.render('movies/list', {pelis:resultados})

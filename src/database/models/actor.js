@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Actor.associate = (models => {
         Actor.belongsToMany(models.Movie, {
+            as: 'peliculas',
             through: 'actor_movie'
         })
     })

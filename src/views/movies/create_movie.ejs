@@ -5,25 +5,39 @@
     
     <form class="forms" action="/movies/create" method="POST">
         <h2>NUEVA PELÍCULA</h2>
+
+        <% if (typeof errors != "undefined") { %>
+            <% errors.errors.forEach(error => { %>
+                <p><%= error.msg%></p>
+            <% }) %>
+            
+        <% } %>
+        
+
+
         <label for="title">TITULO: </label>
-        <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" value="<%if (typeof old != "undefined" && old.title != "") { %><%= old.title %><% } %>">
         
         <label for="rating">RATING: </label>
-        <input type="text" id="rating" name="rating">
+        <input type="text" id="rating" name="rating" value="<%if (typeof old != "undefined" && old.rating != "") { %><%= old.rating %><% } %>">
 
         <label for="awards">PREMIOS (CANTIDAD): </label>
-        <input type="text" id="awards" name="awards">
+        <input type="text" id="awards" name="awards" value="<%if (typeof old != "undefined" && old.awards != "") { %><%= old.awards %><% } %>">
 
         <label for="release_date">FECHA DE ESTRENO: </label>
-        <input type="date" id="release_date" name="release_date">
+        <input type="date" id="release_date" name="release_date" value="<%if (typeof old != "undefined" && old.release_date != "") { %><%= old.release_date %><% } %>">
         
         <label for="length">DURACIÓN (MINUTOS): </label>
-        <input type="text" id="length" name="length">
+        <input type="text" id="length" name="length" value="<%if (typeof old != "undefined" && old.length != "") { %><%= old.length %><% } %>">
         
         <label for="genre_id">GÉNERO: </label>
-        <select id="genre_id" name="genre_id">
+        <select id="genre_id" name="genre_id" >
         <% generos.forEach(genero => { %>
+            <%if (typeof old != "undefined" && old.genre_id == genero.id) { %>
+            <option value="<%=genero.id%>" selected><%= genero.name %></option>
+            <% } else { %>
             <option value="<%=genero.id%>"><%= genero.name %></option>
+            <% } %>
         <% }) %>
         </select>    
         <button type="submit">CREAR PELÍCULA</button>

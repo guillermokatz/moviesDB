@@ -1,6 +1,6 @@
 <%- include('../partials/head') %>
 
-<%- include('../partials/header') %>
+<%- include('../partials/subHeader') %>
 <body>
     <h2>DETALLE PELÍCULA</h2>
     <h1><%= peli.title %></h1>
@@ -13,13 +13,21 @@
     <% }%>
     <p> ACTORES: </p>
     <% peli.actores.forEach(actor => { %>
-        <a href="/actors/<%=actor.id%>">    
+        <a href="../../actors/<%=actor.id%>">    
         <p><%= actor.first_name %> <%= actor.last_name %></p>
         </a>
     <% }) %>
-    <a href="edit/<%=peli.id%>">
-    <button type="button">MODIFICAR</button>
-    </a>
-    <button type="button">BORRAR</button>
+    
+    <!-- BOTONES DE EDICIÓN Y BORRADO -->
+    <div class="detail_buttons">
+        <a href="../edit/<%=peli.id%>">
+            <button class="edit_button" type="button">MODIFICAR</button>
+        </a>
+        
+        <form action="../delete/<%=peli.id%>?_method=DELETE" method="POST">
+            <button class="delete_button" type="submit">BORRAR</button>
+        </form>
+
+    </div>
 </body>
 </html>

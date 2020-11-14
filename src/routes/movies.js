@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+// const { body, validationResult } = require('express-validator');
+const validator = require('../middlewares/routes/validator');
 
 // const db = require('../database/models');
 
@@ -13,13 +15,15 @@ router.get('/', moviesController.list);
 router.get('/recommended', moviesController.rating);
 router.get('/new', moviesController.new);
 router.get('/create', moviesController.create);
-router.post('/create', moviesController.processCreate);
+
+router.post('/create', validator.createMovie, moviesController.processCreate);
+
 router.get('/edit/:id', moviesController.edit);
 router.put('/edit/:id', moviesController.processEdit);
-// router.delete('/delete/:id', moviesController.delete);
+router.delete('/delete/:id', moviesController.delete);
 // router.get('/genre/:id', moviesController.genreDetail);
 router.post('/results', moviesController.searchResults);
-router.get('/:id', moviesController.detail);
+router.get('/detail/:id', moviesController.detail);
 
 
 
