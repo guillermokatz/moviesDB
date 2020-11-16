@@ -5,8 +5,10 @@
     <h2>DETALLE ACTOR</h2>
     <h1><%= actor.first_name%> <%= actor.last_name%></h1>
     <p>RATING: <%= actor.rating %></p>
-    <p>PELÍCULA FAVORITA: <a href="../../movies/detail/<%=actor.favorite_movie.id%>"><%= actor.favorite_movie.title %></a></p>
-
+    <p>PELÍCULA FAVORITA:
+        <% if (actor.favorite_movie != null) { %>
+        <a href="../../movies/detail/<%=actor.favorite_movie.id%>"><%= actor.favorite_movie.title %></a></p>
+        <% } %>
     <p> PELICULAS DONDE ACTUÓ: </p>
     <% actor.peliculas.forEach(pelicula => { %>
         <a href="../../movies/detail/<%=pelicula.id%>">    

@@ -52,9 +52,6 @@ module.exports = {
             .bail()
             .isFloat({min:1, max: 10})
             .withMessage('El rating sólo puede ser del 1 al 10. Puede contener decimales, por ejemplo 8.3'),
-        body('favorite_movie_id')
-            .notEmpty()
-            .withMessage('El actor o actriz debe tener una película favorita'),
     ]
 
 };

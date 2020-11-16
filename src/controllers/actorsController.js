@@ -35,7 +35,7 @@ const actorsController = {
 
     detail: async (req, res) => {
       try {
-        let actor = await Actor.findByPk(req.params.id, {include: ["favorite_movie", "peliculas"]})
+        let actor = await Actor.findByPk(req.params.id, {include:{all: true}})
 
         res.render('actors/detail', {actor:actor, moment:moment, title: actor.first_name + " " + actor.last_name});
       } catch (error) {
@@ -189,6 +189,9 @@ const actorsController = {
     },
 
     delete: async (req, res) => {
+      const actorDel = await Actor.findByPk(req.params.id, {include:{all: true}});
+      await actorDel.removePeliculas(actorDel.peliculas)
+      // res.send(actorDel)
       await Actor.destroy({
         where: {id: req.params.id}
       });

@@ -38,7 +38,15 @@
             <option value="<%=genero.id%>"><%= genero.name %></option>
             <% } %>
         <% }) %>
-        </select>    
+        </select>  
+        
+        <label for="actores">ACTORES (OPCIONAL): </label>
+        <select name="actores" id="actores" multiple>
+            <% actores.forEach(actor => { %>
+                <option value="<%=actor.id%>"><%= actor.first_name%> <%=actor.last_name%></option>
+            <% }) %>
+        </select>
+
         <button type="submit">CREAR PELÍCULA</button>
     </form>
 

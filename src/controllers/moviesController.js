@@ -1,7 +1,7 @@
 const path = require('path');
 const moment = require('moment');
 const { validationResult } = require('express-validator');
-const {Movie, Genre, sequelize} = require('../database/models');
+const {Movie, Genre, Actor, Actor_Movie, sequelize} = require('../database/models');
 const {Op} = require('sequelize');
 
 const moviesController = {
@@ -116,13 +116,16 @@ const moviesController = {
 
     create: async (req, res) => {
       
-      
-
       try {
         const generos = await Genre.findAll({
           order: [['name','ASC']]
         });
-        res.render('movies/create_movie', {title: 'Crear película', generos});
+
+        const actores = await Actor.findAll({
+          order: [['first_name','ASC']]
+        });
+
+        res.render('movies/create_movie', {title: 'Crear película', generos, actores});
 
       } catch (error) {
         console.log(error)
@@ -136,9 +139,17 @@ const moviesController = {
         order: [['name','ASC']]
       });
 
+      const actores = await Actor.findAll({
+        order: [['first_name','ASC']]
+      });
+
       if (errors.isEmpty()) {     
         try {
-          await Movie.create(req.body);
+          // res.send(req.body)
+
+          const nuevaMovie = await Movie.create(req.body);
+          await nuevaMovie.addActores(req.body.actores);
+
           res.redirect('/movies');
         } catch (error) {
           console.log(error)
@@ -146,21 +157,25 @@ const moviesController = {
       }
       else {
         const old = req.body;
-        res.render('movies/create_movie', {title: 'Crear película', generos: generos, errors: errors, old: old});
+        res.render('movies/create_movie', {title: 'Crear película', generos: generos, errors: errors, old: old, actores: actores});
       }
     },
 
     edit: async (req, res) => {
       try {
         const movie = await Movie.findByPk(req.params.id, {
-          include:['Genre']
+          include:['Genre', 'actores']
         });
 
         const generos = await Genre.findAll({
           order: [['name','ASC']]
         });
 
-        res.render('movies/edit_movie', {movie: movie, generos: generos, moment:moment, title: "Editar " + movie.title});
+        const actores = await Actor.findAll({
+          order: [['first_name','ASC']]
+        });
+
+        res.render('movies/edit_movie', {movie: movie, generos: generos, actores:actores, moment:moment, title: "Editar " + movie.title});
 
       } catch (error) {
         console.log(error)
@@ -171,18 +186,24 @@ const moviesController = {
       const errors = validationResult(req);
       
       const movie = await Movie.findByPk(req.params.id, {
-        include:['Genre']
+        include:['Genre', 'actores']
       });
 
       const generos = await Genre.findAll({
         order: [['name','ASC']]
       });
+
+      const actores = await Actor.findAll({
+        order: [['first_name','ASC']]
+      });
       
       if (errors.isEmpty()) {
         try {
-        await Movie.update(req.body, {
-          where: {id: req.params.id}
-        });
+        await movie.removeActores(movie.actores);
+        await movie.addActores(req.body.actores);
+        await movie.update(req.body);
+
+
         res.redirect('../../movies/');
 
         } catch (error) {
@@ -190,7 +211,7 @@ const moviesController = {
         };
       } else {
         const old = req.body;
-        res.render('movies/edit_movie', {movie: movie, generos: generos, moment:moment, title: "Editar " + movie.title, errors: errors, old: old});
+        res.render('movies/edit_movie', {movie: movie, generos: generos, actores:actores, moment:moment, title: "Editar " + movie.title, errors: errors, old: old});
       }
     },
 
@@ -198,6 +219,7 @@ const moviesController = {
       try {
       const movie = await Movie.findByPk(req.params.id, {include:{all: true}});
       await movie.removeActores(movie.actores)
+      await movie.removeActor_favorite(movie.actor_favorite)
       // res.send(movie)
       
       await Movie.destroy({

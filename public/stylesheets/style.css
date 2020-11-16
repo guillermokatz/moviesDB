@@ -1,8 +1,11 @@
 * {
   background-color: gray;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 0.97em;
   box-sizing: border-box;
 }
+
+
 
 button {
   background-color: white;
@@ -14,27 +17,60 @@ option {
 
 a {
   color: white;
+  
 }
+
+
 
 .header_nav {
   align-items: center;
-  margin: 0 auto;
+  margin: 0px auto;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1%;
   justify-content: space-between;
   text-align: center;
+  background-color: black;
+  border-radius: 10px;
   
 }
 
 .header_nav a {
   text-decoration: none;
+  background-color:  black;
+}
+
+.header_nav p {
+  background-color: black;
+}
+
+.header_nav form {
+  background-color:transparent;
+}
+
+.header_nav input {
+  background-color: white;
+  border-radius: 5px;
+  margin: 5px;
+  
+}
+
+.header_nav select {
+  margin: 5px;
+  padding: 1%;
+  border-radius: 5px;
+}
+
+.header_nav button {
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .detail_buttons {
   display: flex;
   align-items: flex-end;
 }
+
 
 .detail_buttons * {
   margin-right: 5%;
